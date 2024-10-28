@@ -1,1 +1,1 @@
-# fucntional_dep
+# Playing with functional dependencies
