@@ -17,7 +17,7 @@ fds = [
 ```
 The above expression can be translated as below:
 
-{{A} -> {A, B, C}},\
+{{A} -> {A, B, C},\
 {A, B} -> {A},\
 {B, C} -> {A, D},\
 {B} -> {A, B},\
