@@ -17,7 +17,7 @@ fds = [
 ```
 The above expression can be translated as below:
 
-fds = {{A} -> {A, B, C},\
+$\Sigma$ = {{A} -> {A, B, C},\
 {A, B} -> {A},\
 {B, C} -> {A, D},\
 {B} -> {A, B},\
