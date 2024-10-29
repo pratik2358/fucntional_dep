@@ -1,6 +1,6 @@
 # Playing with functional dependencies
 
-In the functional_deps.ipynb file, run the first cell as it is.
+In the [functional_deps.ipynb](https://github.com/pratik2358/fucntional_dep/blob/main/functional_deps.ipynb) file, run the first cell as it is.
 
 You'll find the example usage in the subsequent cells.
 
