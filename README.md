@@ -7,6 +7,7 @@ You'll find the example usage in the subsequent cells.
 The functional dependencies are expressed as a list of tuples. The first set in the each tuple represents the left hand side of the dependency and the second set in each tuple represents the right hand side of the dependency.
 
 ```
+attributes = {'A', 'B', 'C', 'D', 'E'}
 fds = [
     ({'A'}, {'A', 'B', 'C'}),
     ({'A', 'B'}, {'A'}),
@@ -16,6 +17,8 @@ fds = [
 ]
 ```
 The above expression can be translated as below:
+
+R = {A, B, C, D, E}
 
 $\Sigma$ = {{A} -> {A, B, C},\
 {A, B} -> {A},\
