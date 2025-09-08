@@ -29,3 +29,5 @@ $\Sigma$ = {{A} -> {A, B, C},\
 # Finding functional dependencies from a pandas dataframe
 
 In the [discover.ipynb](https://github.com/pratik2358/fucntional_dep/blob/main/discover.ipynb) file, run the first cell as it is. The next cells show two small examples to find functional dependency from a given relation (table).
+
+In this, if you have a table (pandas dataframe), you can use the algorithm to find the set of functional dependencies that can be inferred from it.
