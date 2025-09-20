@@ -131,22 +131,35 @@ def compute_single_covers(attributes, fds) -> dict:
 
 def project_dependency(fds, R_hat) -> list:
     """
-    Project a set of functional dependencies on a set of attributes
-    ---------------------------------------------------------------
-    fds: a list of functional dependencies (contains tuples of two sets. First set implies the second set)
-    R_hat: a set of attributes
-    """
-    fds_hat = []
-    for fd in fds:
-        if fd[0].issubset(R_hat):
-            y = fd[1].intersection(R_hat)
-            if len(y)>0:
-                fds_hat.append((fd[0],y))
-    for fd in fds_hat:
-        if fd[0] == fd[1]:
-            fds_hat.remove(fd)
-    return fds_hat
+    Project a set of functional dependencies onto R_hat using the closure-based
+    algorithm, then minimize (LHS + redundancy) via minimal_cover.
 
+    fds: list[(set, set)]   e.g., [({'A'}, {'B','C'}), ({'B'}, {'C'})]
+    R_hat: set
+    returns: list[(set, set)] a minimized cover over R_hat
+    """
+    R_hat = set(R_hat)
+    if not R_hat:
+        return []
+
+    # 1) Generate projected unit FDs via closures over all non-empty Y ⊆ R_hat
+    projected_unit = set()  # {(frozenset(Y), frozenset({a}))}
+    attrs = list(R_hat)
+    for r in range(1, len(attrs) + 1):
+        for Y_tuple in combinations(attrs, r):
+            Y = set(Y_tuple)
+            T = compute_closure(Y, fds)          # Y+ w.r.t. original Σ
+            H = (T & R_hat) - Y                  # keep only nontrivial heads in R'
+            for a in H:
+                projected_unit.add((frozenset(Y), frozenset({a})))
+
+    # 2) Convert to list[(set, set)] and minimize using your pipeline
+    proj_fds = [(set(L), set(R)) for (L, R) in projected_unit]
+
+    # Deterministic minimal cover (avoid randomness in tie-breaking)
+    minimized = minimal_cover(proj_fds, p=0.0)
+
+    return minimized
 ## Minimal cover computation
 
 def decompose_fds(fds) -> list:
@@ -465,4 +478,5 @@ def group_fds(fds):
     fds = []
     for lhs, rhss in grouped.items():
         fds.append(tuple([set(lhs), set(rhss)]))
+
     return fds
